@@ -11,19 +11,27 @@ const useStore = defineStore('store', () => ({
 			tags?: string[]
 		}[]
 	>('messageList', []),
+
 	apiKey: useStorage('apiKey', null),
+
 	orgId: useStorage('orgId', null),
+
+	mode: useStorage<'dialog' | 'image'>('mode', 'dialog'),
+
 	preset: useStorage('preset', null),
+
 	apiConfig: useStorage('apiConfig', {
-		model: null,
+		model: 'text-davinci-003',
 		n: 1,
 		temperature: 0,
 		maxTokens: 200,
 		topP: 0,
-		stop: [],
+		stop: ['\\n'],
 		frequencyPenalty: 0,
 		presencePenalty: 0,
+		size: '1024x1024'
 	}),
+
 	locale: useStorage<'enUS' | 'zhCN'>('locale', 'enUS'),
 }))
 

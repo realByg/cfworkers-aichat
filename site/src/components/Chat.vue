@@ -21,7 +21,7 @@ import { storeToRefs } from 'pinia'
 
 const chatScrollRef = ref<typeof ChatScroll>()
 
-const { messageList } = storeToRefs(useStore())
+const { messageList, apiConfig } = storeToRefs(useStore())
 
 const isLoading = ref(false)
 

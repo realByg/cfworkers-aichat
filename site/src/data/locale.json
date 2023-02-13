@@ -7,14 +7,13 @@
         },
         "chatInput": {
             "send": "Send",
-            "placeholder": "ask anything..."
+            "placeholder": "what do you wanna ask..."
         },
         "settings": {
             "title": "Settings",
-            "advanced": "Advanced",
             "preset": "Preset",
             "model": "Model",
-            "n": "N",
+            "n": "Count",
             "temperature": "Temperature",
             "maxTokens": "Max Tokens",
             "topP": "Top P",
@@ -26,7 +25,13 @@
             "refer": "* Refer to OpenAI Documentations for detailed usage.",
             "getAPI": "* Get your api key from OpenAI",
             "api": "API Key",
-            "org": "Organization ID"
+            "org": "Organization ID",
+            "mode": "Mode",
+            "size": "Size"
+        },
+        "mode": {
+            "dialog": "Dialog",
+            "image": "Image Generation"
         }
     },
     "zhCN": {
@@ -37,14 +42,13 @@
         },
         "chatInput": {
             "send": "发送",
-            "placeholder": "随便问什么..."
+            "placeholder": "你想问什么..."
         },
         "settings": {
             "title": "设置",
-            "advanced": "高级选项",
             "preset": "预设",
             "model": "模型",
-            "n": "N",
+            "n": "数量",
             "temperature": "温度",
             "maxTokens": "最大长度",
             "topP": "最高 P",
@@ -56,7 +60,13 @@
             "refer": "* 详细用法请参考 OpenAI 文档",
             "getAPI": "* 从 OpenAI 获取 API 密钥",
             "api": "API 密钥",
-            "org": "组织 ID"
+            "org": "组织 ID",
+            "mode": "模式",
+            "size": "尺寸"
+        },
+        "mode": {
+            "dialog": "对话",
+            "image": "图像生成"
         }
     }
 }
