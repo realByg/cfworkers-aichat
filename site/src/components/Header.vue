@@ -1,14 +1,17 @@
 <template>
 	<div class="bg-zinc-700 h-[54px] lg:h-[60px] flex items-center px-3 lg:px-6">
 		<img src="/favicon.svg" class="block m-0 h-8 w-8 lg:h-10 lg:w-10" />
-		<div class="h-10 ml-2">
-			<div class="font-bold lg:text-lg lg:leading-tight">ChatGPT</div>
-			<div class="text-xs lg:text-sm leading-none text-zinc-400">
+
+		<div class="h-10 px-2 flex-1 overflow-hidden">
+			<div class="font-bold lg:text-lg lg:leading-tight">
+				{{ t('header.title') }}
+			</div>
+			<div
+				class="text-xs lg:text-sm leading-none text-zinc-400 w-full overflow-hidden whitespace-nowrap text-ellipsis"
+			>
 				{{ t('header.desc') }}
 			</div>
 		</div>
-
-		<div class="flex-1"></div>
 
 		<NDropdown
 			trigger="click"
@@ -16,7 +19,7 @@
 			@select="onDropdownSelect"
 			placement="bottom-end"
 		>
-			<NButton quaternary circle type="primary" class="!ml-2">
+			<NButton quaternary circle type="primary">
 				<template #icon>
 					<NIcon size="30"><MoreVertical32Filled /></NIcon>
 				</template>

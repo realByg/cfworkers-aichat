@@ -1,0 +1,26 @@
+[
+    {
+        "id": "text-davinci-003",
+        "serie": "GPT-3"
+    },
+    {
+        "id": "text-curie-001",
+        "serie": "GPT-3"
+    },
+    {
+        "id": "text-babbage-001",
+        "serie": "GPT-3"
+    },
+    {
+        "id": "text-ada-001",
+        "serie": "GPT-3"
+    },
+    {
+        "id": "code-davinci-002",
+        "serie": "Codex"
+    },
+    {
+        "id": "code-cushman-001",
+        "serie": "Codex"
+    }
+]

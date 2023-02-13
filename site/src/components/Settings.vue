@@ -29,7 +29,12 @@
 				<NForm class="mt-3">
 					<NGrid x-gap="26" cols="1 m:2" responsive="screen">
 						<NFormItemGi :label="t('settings.model')">
-							<NSelect v-model:value="apiConfig.model" />
+							<NSelect
+								v-model:value="apiConfig.model"
+								filterable
+								:options="modelOptions"
+								clearable
+							/>
 						</NFormItemGi>
 						<NFormItemGi
 							:label="`${t('settings.temperature')}: ${apiConfig.temperature}`"
@@ -131,15 +136,35 @@ import {
 	NCollapse,
 	NCollapseItem,
 	NInput,
+	SelectGroupOption,
 } from 'naive-ui'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useStore from '../utils/useStore'
 import { storeToRefs } from 'pinia'
 import Dialog from './Dialog.vue'
+import models from '../data/models.json'
 
+const modelOptions = computed(() => {
+	let _modelOptions: SelectGroupOption[] = []
+	for (const model of models) {
+		if (_modelOptions.every((i) => i.key !== model.serie)) {
+			_modelOptions.push({
+				type: 'group',
+				label: model.serie,
+				key: model.serie,
+				children: models
+					.filter((i) => i.serie === model.serie)
+					.map((i) => ({
+						label: i.id,
+						value: i.id,
+					})),
+			})
+		}
+	}
+	return _modelOptions
+})
 const about = 'https://github.com/realByg/'
-
 const localeOptions = [
 	{ label: '中文', value: 'zhCN' },
 	{ label: 'English', value: 'enUS' },

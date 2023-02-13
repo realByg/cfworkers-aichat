@@ -22,8 +22,8 @@ export default {
 			)
 		}
 
-		if (path.startsWith('/api/')) {
-			return await fetch(`${openaiAPI}/${path.replace('/api/', '')}`, {
+		if (path.startsWith('/ai/')) {
+			return await fetch(`${openaiAPI}/${path.replace('/ai/', '')}`, {
 				method: request.method,
 				headers: new Headers({
 					'Content-Type': request.headers.get('Content-Type') || 'application/json',

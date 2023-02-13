@@ -3,9 +3,16 @@ import useStore from './useStore'
 import useDiscreteApi from './useDiscreteApi'
 
 const request = axios.create({
-	baseURL: import.meta.env.VITE_APP_API_URL,
+	baseURL: '/ai',
 	timeout: 60 * 1000,
 })
+
+const notifyError = (error: any) => {
+	useDiscreteApi().notification.error({
+		content: error.message || String(error),
+		duration: 5000,
+	})
+}
 
 request.interceptors.request.use(
 	(request) => {
@@ -20,7 +27,7 @@ request.interceptors.request.use(
 		return request
 	},
 	(error) => {
-		useDiscreteApi().notification.error({ content: error.message || String(error) })
+		notifyError(error)
 		return Promise.reject(error)
 	},
 )
@@ -30,7 +37,7 @@ request.interceptors.response.use(
 		return response.data
 	},
 	(error) => {
-		useDiscreteApi().notification.error({ content: error.message || String(error) })
+		notifyError(error)
 		return Promise.reject(error)
 	},
 )

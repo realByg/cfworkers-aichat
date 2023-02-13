@@ -1,6 +1,7 @@
 {
     "enUS": {
         "header": {
+            "title": "cfworkers-aichat",
             "desc": "AI Chat bot built on Cloudflare workers, powered by OpenAI",
             "clearMsg": "Clear messages"
         },
@@ -30,6 +31,7 @@
     },
     "zhCN": {
         "header": {
+            "title": "cfworkers-aichat",
             "desc": "搭建在 Cloudflare workers 上的 AI 聊天机器人，由 OpenAI 驱动",
             "clearMsg": "清空消息"
         },

@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-1 overflow-hidden">
-		<NScrollbar ref="scrollbarRef" trigger="hover" :on-scroll="onScroll">
+		<NScrollbar class="chat-scrollbar" ref="scrollbarRef" trigger="hover" :on-scroll="onScroll">
 			<slot />
 
 			<div
@@ -50,11 +50,11 @@ defineExpose({
 </script>
 
 <style scoped>
-:deep(.n-scrollbar-content) {
+:deep(.chat-scrollbar > .n-scrollbar-container > .n-scrollbar-content) {
 	@apply min-h-full flex flex-col justify-end pt-4 px-2;
 }
 
-:deep(.n-scrollbar-rail--vertical) {
+:deep(.chat-scrollbar > .n-scrollbar-rail--vertical) {
 	@apply !right-[2px];
 }
 </style>

@@ -9,7 +9,7 @@
 			:show-icon="false"
 			@close="show = false"
 		>
-			<NScrollbar class="max-h-[80vh]">
+			<NScrollbar class="dialog-scrollbar max-h-[80vh]">
 				<slot />
 			</NScrollbar>
 		</NDialog>
@@ -37,11 +37,11 @@ const show = computed({
 </script>
 
 <style scoped>
-:deep(.n-scrollbar) {
+:deep(.dialog-scrollbar.n-scrollbar) {
 	@apply !overflow-visible;
 }
 
-:deep(.n-scrollbar-rail--vertical) {
+:deep(.dialog-scrollbar > .n-scrollbar-rail--vertical) {
 	@apply !right-[-24px];
 }
 </style>
