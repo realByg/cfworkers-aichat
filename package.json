@@ -1,0 +1,16 @@
+{
+  "name": "cfworkers-aichat",
+  "version": "0.0.1",
+  "description": "AI Chat bot built on Cloudflare workers, powered by OpenAI",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0",
+    "@vicons/fluent": "^0.12.0"
+  }
+}

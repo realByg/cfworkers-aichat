@@ -1,0 +1,60 @@
+{
+    "enUS": {
+        "header": {
+            "desc": "AI Chat bot built on Cloudflare workers, powered by OpenAI",
+            "clearMsg": "Clear messages"
+        },
+        "chatInput": {
+            "send": "Send",
+            "placeholder": "ask anything..."
+        },
+        "settings": {
+            "title": "Settings",
+            "advanced": "Advanced",
+            "preset": "Preset",
+            "model": "Model",
+            "n": "N",
+            "temperature": "Temperature",
+            "maxTokens": "Max Tokens",
+            "topP": "Top P",
+            "stop": "Stop",
+            "frequencyPenalty": "Frequency Penalty",
+            "presencePenalty": "Presence Penalty",
+            "locale": "Locale",
+            "about": "About",
+            "refer": "* Refer to OpenAI Documentations for detailed usage.",
+            "getAPI": "* Get your api key from OpenAI",
+            "api": "API Key",
+            "org": "Organization ID"
+        }
+    },
+    "zhCN": {
+        "header": {
+            "desc": "搭建在 Cloudflare workers 上的 AI 聊天机器人，由 OpenAI 驱动",
+            "clearMsg": "清空消息"
+        },
+        "chatInput": {
+            "send": "发送",
+            "placeholder": "随便问什么..."
+        },
+        "settings": {
+            "title": "设置",
+            "advanced": "高级选项",
+            "preset": "预设",
+            "model": "模型",
+            "n": "N",
+            "temperature": "温度",
+            "maxTokens": "最大长度",
+            "topP": "最高 P",
+            "stop": "停止",
+            "frequencyPenalty": "频率惩罚",
+            "presencePenalty": "在场处罚",
+            "locale": "语言",
+            "about": "关于",
+            "refer": "* 详细用法请参考 OpenAI 文档",
+            "getAPI": "* 从 OpenAI 获取 API 密钥",
+            "api": "API 密钥",
+            "org": "组织 ID"
+        }
+    }
+}
