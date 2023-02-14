@@ -5,12 +5,13 @@ import useDiscreteApi from './useDiscreteApi'
 const request = axios.create({
 	baseURL: '/ai',
 	timeout: 60 * 1000,
+	// validateStatus: status =>
 })
 
 const notifyError = (error: any) => {
 	useDiscreteApi().notification.error({
 		content: error.message || String(error),
-		duration: 5000,
+		duration: 10000,
 	})
 }
 
@@ -23,7 +24,13 @@ request.interceptors.request.use(
 		if (orgId) {
 			request.headers['OpenAI-Organization'] = orgId
 		}
-
+		// if (request.data) {
+		// 	Object.entries({ ...request.data }).forEach(([key, value]) => {
+		// 		const newKey = key.replace(/[A-Z]/g, (i) => `_${i.toLowerCase()}`)
+		// 		request.data[newKey] = value
+		// 		delete request.data[key]
+		// 	})
+		// }
 		return request
 	},
 	(error) => {
@@ -33,9 +40,7 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-	(response) => {
-		return response.data
-	},
+	(response) => response,
 	(error) => {
 		notifyError(error)
 		return Promise.reject(error)

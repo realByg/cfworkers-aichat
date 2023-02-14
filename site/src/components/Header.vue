@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-zinc-700 h-[54px] lg:h-[60px] flex items-center px-3 lg:px-6">
+	<div class="bg-zinc-700 h-[54px] lg:h-[60px] flex items-center px-2 lg:px-4">
 		<img src="/favicon.svg" class="block m-0 h-8 w-8 lg:h-10 lg:w-10" />
 
 		<div class="h-10 px-2 flex-1 overflow-hidden">
@@ -13,26 +13,63 @@
 			</div>
 		</div>
 
-		<NDropdown
-			trigger="click"
-			:options="dropdownOptions"
-			@select="onDropdownSelect"
-			placement="bottom-end"
+		<NButton class="!ml-2" type="error" quaternary circle @click="messageList = []">
+			<template #icon>
+				<NIcon size="24">
+					<Clean />
+				</NIcon>
+			</template>
+		</NButton>
+
+		<NPopselect
+			v-model:value="locale"
+			:options="[
+				{ label: '中文', value: 'zhCN' },
+				{ label: 'English', value: 'enUS' },
+			]"
+			placement="bottom-start"
 		>
-			<NButton quaternary circle type="primary">
+			<NButton class="!ml-2" type="primary" quaternary circle>
 				<template #icon>
-					<NIcon size="30"><MoreVertical32Filled /></NIcon>
+					<NIcon size="30">
+						<Translate16Regular />
+					</NIcon>
 				</template>
 			</NButton>
-		</NDropdown>
+		</NPopselect>
+
+		<NButton class="!ml-2" type="primary" quaternary circle @click="settingsRef?.open()">
+			<template #icon>
+				<NIcon size="30">
+					<Settings16Regular />
+				</NIcon>
+			</template>
+		</NButton>
+
+		<NButton
+			class="!ml-2"
+			type="info"
+			quaternary
+			circle
+			tag="a"
+			href="https://github.com/realByg/"
+			target="_blank"
+		>
+			<template #icon>
+				<NIcon size="30">
+					<LogoGithub />
+				</NIcon>
+			</template>
+		</NButton>
 	</div>
 
 	<Settings ref="settingsRef" />
 </template>
 
 <script setup lang="ts">
-import { NIcon, NButton, NDropdown } from 'naive-ui'
-import { MoreVertical32Filled } from '@vicons/fluent'
+import { NIcon, NButton, NPopselect } from 'naive-ui'
+import { Translate16Regular, Settings16Regular } from '@vicons/fluent'
+import { Clean, LogoGithub } from '@vicons/carbon'
 import Settings from './Settings.vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -43,18 +80,5 @@ const { t } = useI18n()
 
 const settingsRef = ref<typeof Settings>()
 
-const { messageList } = storeToRefs(useStore())
-
-const dropdownOptions = [
-	{ label: () => t('header.clearMsg'), key: 'clearMsg', props: { class: '!text-red-500' } },
-	{ label: () => t('settings.title'), key: 'settings' },
-]
-
-const onDropdownSelect = (key: string) => {
-	if (key === 'clearMsg') {
-		messageList.value = []
-	} else if (key === 'settings') {
-		settingsRef.value?.openDialog()
-	}
-}
+const { messageList, locale } = storeToRefs(useStore())
 </script>
