@@ -56,7 +56,7 @@
 			target="_blank"
 		>
 			<template #icon>
-				<NIcon size="30">
+				<NIcon size="28">
 					<LogoGithub />
 				</NIcon>
 			</template>

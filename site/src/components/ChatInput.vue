@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { NInput, NButton, NPopselect, NIcon } from 'naive-ui'
+import { NInput, NButton, NPopselect, NIcon, SelectGroupOption } from 'naive-ui'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ImageMultiple16Filled, Chat16Filled, Send24Filled } from '@vicons/fluent'
@@ -52,9 +52,8 @@ const { mode } = storeToRefs(useStore())
 
 const input = ref('')
 
-const modeOptions = [
-	{ label: () => t('mode.dialog'), value: 'dialog' },
-	{ label: () => t('mode.image'), value: 'image' },
+const modeOptions: SelectGroupOption[] = [
+	// todo
 ]
 
 const newline = () => {

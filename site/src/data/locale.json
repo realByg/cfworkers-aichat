@@ -9,22 +9,8 @@
         },
         "settings": {
             "title": "Settings",
-            "model": "Model",
-            "dialogN": "Count",
-            "imageN": "Count",
-            "temperature": "Temperature",
-            "maxTokens": "Max Tokens",
-            "topP": "Top P",
-            "stop": "Stop",
-            "frequencyPenalty": "Frequency Penalty",
-            "presencePenalty": "Presence Penalty",
             "api": "API Key",
-            "org": "Organization ID",
-            "size": "Size"
-        },
-        "mode": {
-            "dialog": "Dialog",
-            "image": "Image Generation"
+            "org": "Organization ID"
         }
     },
     "zhCN": {
@@ -37,22 +23,8 @@
         },
         "settings": {
             "title": "设置",
-            "model": "模型",
-            "dialogN": "数量",
-            "imageN": "数量",
-            "temperature": "温度",
-            "maxTokens": "最大长度",
-            "topP": "最高 P",
-            "stop": "停止",
-            "frequencyPenalty": "频率惩罚",
-            "presencePenalty": "在场处罚",
             "api": "API 密钥",
-            "org": "组织 ID",
-            "size": "尺寸"
-        },
-        "mode": {
-            "dialog": "对话",
-            "image": "图像生成"
+            "org": "组织 ID"
         }
     }
 }

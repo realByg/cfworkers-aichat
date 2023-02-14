@@ -17,10 +17,15 @@
 				'bg-zinc-500 rounded-br-none': props.position === 'right',
 			}"
 		>
-			<div v-if="props.text" class="whitespace-pre-wrap">
-				{{ props.text }}
-			</div>
-			<div v-if="props.isLoading" class="w-[30vw] h-6"></div>
+			<template v-if="props.content">
+				<div v-if="props.type === 'text'" class="whitespace-pre-wrap">
+					{{ props.content }}
+				</div>
+				<div v-else-if="props.type === 'image'">
+					<!-- todo -->
+				</div>
+			</template>
+			<div v-else-if="props.isLoading" class="w-[30vw] h-6"></div>
 		</div>
 		<div v-if="props.position === 'right'" class="lg:w-4 w-3 bg-zinc-500">
 			<div class="w-full h-full rounded-bl-lg bg-zinc-600"></div>
@@ -32,6 +37,7 @@
 const props = defineProps<{
 	position: 'left' | 'right'
 	isLoading?: boolean
-	text?: string
+	content?: string
+	type?: 'text' | 'image'
 }>()
 </script>
