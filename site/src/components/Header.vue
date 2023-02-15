@@ -13,7 +13,7 @@
 			</div>
 		</div>
 
-		<NButton class="!ml-2" type="error" quaternary circle @click="messageList = []">
+		<NButton class="!ml-2" type="error" quaternary circle @click="messages = []">
 			<template #icon>
 				<NIcon size="24">
 					<Clean />
@@ -78,5 +78,5 @@ const { t } = useI18n()
 
 const settingsRef = ref<typeof Settings>()
 
-const { messageList, locale } = storeToRefs(useStore())
+const { messages, locale } = storeToRefs(useStore())
 </script>

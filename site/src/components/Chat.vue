@@ -1,13 +1,7 @@
 <template>
 	<ChatScroll ref="chatScrollRef">
-		<Message
-			v-for="message in messageList"
-			:position="message.isFromUser ? 'right' : 'left'"
-			:content="message.content"
-			:type="message.type"
-			:isError="message.isError"
-		/>
-		<Message v-if="isLoading" position="left" isLoading />
+		<Message v-for="message in messages" :message="message" />
+		<Message v-if="loading" loading />
 	</ChatScroll>
 	<ChatInput @send="sendMessage" />
 </template>
@@ -23,12 +17,12 @@ import request from '../utils/request'
 
 const chatScrollRef = ref<typeof ChatScroll>()
 
-const { messageList, mode, apiConfigs } = storeToRefs(useStore())
+const { messages, mode, apiConfigs } = storeToRefs(useStore())
 
-const isLoading = ref(false)
+const loading = ref(false)
 
 watch(
-	() => [messageList.value.length, isLoading.value],
+	() => [messages.value.length, loading.value],
 	() => {
 		nextTick(() => {
 			chatScrollRef.value?.scrollToBottom('smooth')
@@ -38,19 +32,24 @@ watch(
 )
 
 const sendMessage = async (content: string) => {
-	messageList.value.push({
-		isFromUser: true,
+	messages.value.push({
+		isAI: false,
 		content,
-		type: 'text',
+		mode: mode.value,
+		type: 'chat',
 	})
-	isLoading.value = true
+	loading.value = true
 
 	const apiPath = (() => {
 		if (mode.value === 'text' || mode.value === 'code') return '/v1/completions'
 		else if (mode.value === 'image') return '/v1/images/generations'
 	})()!
 	const prompt = (() => {
-		if (mode.value === 'text') return messageList.value.map((i) => i.content).join('\n')
+		if (mode.value === 'text')
+			return messages.value
+				.filter((i) => i.mode === 'text')
+				.map((i) => i.content)
+				.join('\n')
 		else if (mode.value === 'code' || mode.value === 'image') return content
 	})()
 
@@ -63,30 +62,32 @@ const sendMessage = async (content: string) => {
 		).data
 		if (mode.value === 'text' || mode.value === 'code') {
 			for (const choice of response.choices) {
-				messageList.value.push({
-					isFromUser: false,
+				messages.value.push({
+					isAI: true,
 					content: choice.text.trim(),
-					type: 'text',
+					mode: mode.value,
+					type: 'chat',
 				})
 			}
 		} else if (mode.value === 'image') {
 			for (const item of response.data) {
-				messageList.value.push({
-					isFromUser: false,
+				messages.value.push({
+					isAI: true,
 					content: item.url,
-					type: 'image',
+					mode: mode.value,
+					type: 'chat',
 				})
 			}
 		}
 	} catch (error: any) {
-		const errorMsg = error.response.data?.error?.message || String(error)
-		messageList.value.push({
-			isFromUser: false,
-			content: errorMsg,
-			type: 'text',
-			isError: true,
+		const errorMsg = error?.response?.data?.error?.message || String(error)
+		messages.value.push({
+			isAI: true,
+			mode: mode.value,
+			error: errorMsg,
+			type: 'chat',
 		})
 	}
-	isLoading.value = false
+	loading.value = false
 }
 </script>

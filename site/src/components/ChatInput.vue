@@ -37,9 +37,14 @@
 
 <script setup lang="ts">
 import { NInput, NButton, NPopselect, NIcon, SelectOption } from 'naive-ui'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ImageMultiple16Filled, SlideText20Filled, Send24Filled, CodeCircle20Filled } from '@vicons/fluent'
+import {
+	ImageMultiple16Filled,
+	SlideText20Filled,
+	Send24Filled,
+	CodeCircle20Filled,
+} from '@vicons/fluent'
 import useStore from '../utils/useStore'
 import { storeToRefs } from 'pinia'
 
@@ -49,7 +54,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
-const { mode } = storeToRefs(useStore())
+const { mode, messages } = storeToRefs(useStore())
 
 const input = ref('')
 
@@ -69,4 +74,11 @@ const onSend = () => {
 	emit('send', value)
 	input.value = ''
 }
+
+watch(mode, () => {
+	messages.value.push({
+		type: 'info',
+		content: `${t('modeChangeTo')}${t(`mode.${mode.value}`)}`,
+	})
+})
 </script>

@@ -1,9 +1,9 @@
 import { createPinia, defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
+import { type Mode, type Message } from './types'
 
 export const store = createPinia()
 
-type Mode = 'text' | 'image' | 'code'
 type ApiConfig = {
 	model: string
 	n: number
@@ -24,14 +24,7 @@ const useStore = defineStore('store', () => ({
 
 	orgId: useStorage('orgId', null),
 
-	messageList: useStorage<
-		{
-			isFromUser: boolean
-			content: string
-			type: Mode
-			isError?: boolean
-		}[]
-	>('messageList', []),
+	messages: useStorage<Message[]>('messages', []),
 
 	mode: useStorage<Mode>('mode', 'text'),
 

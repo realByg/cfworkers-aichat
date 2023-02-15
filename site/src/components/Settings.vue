@@ -306,7 +306,7 @@ const sizeOptions = [
 	{ label: '256x256', value: '256x256' },
 ]
 
-const { apiKey, orgId, apiConfigs, messageList } = storeToRefs(useStore())
+const { apiKey, orgId, apiConfigs, messages } = storeToRefs(useStore())
 
 const { t } = useI18n()
 
@@ -315,13 +315,16 @@ const showDialog = ref(false)
 const creditGrants = ref<null | Record<string, any>>(null)
 
 const getCreditGrants = async () => {
-	creditGrants.value = null
-	creditGrants.value = (await request.get('/dashboard/billing/credit_grants')).data
+	try {
+		creditGrants.value = (await request.get('/dashboard/billing/credit_grants')).data
+	} catch (error) {
+		creditGrants.value = null
+	}
 }
 
 watch(apiKey, () => {
 	getCreditGrants()
-	messageList.value = []
+	messages.value = []
 })
 
 defineExpose({
