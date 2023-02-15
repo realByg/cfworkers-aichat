@@ -3,16 +3,47 @@ import useStore from './useStore'
 import useDiscreteApi from './useDiscreteApi'
 
 const request = axios.create({
-	baseURL: '/ai',
+	baseURL: '/openai',
 	timeout: 60 * 1000,
 	// validateStatus: status =>
 })
 
 const notifyError = (error: any) => {
+	if (error?.response?.data) return
 	useDiscreteApi().notification.error({
 		content: error.message || String(error),
 		duration: 10000,
 	})
+}
+
+const objectKeyToSnakeCase: any = (data: any) => {
+	if (Object.prototype.toString.call(data) === '[object Object]') {
+		const newData: Record<string, any> = {}
+		Object.entries(data).forEach(([key, value]) => {
+			const newKey = key.replace(/[A-Z]/g, (i) => `_${i.toLowerCase()}`)
+			newData[newKey] = objectKeyToSnakeCase(value)
+		})
+		return newData
+	} else if (Array.isArray(data)) {
+		return data.map((i: any) => objectKeyToSnakeCase(i))
+	} else {
+		return data
+	}
+}
+
+const objectKeyToCamelCase: any = (data: any) => {
+	if (Object.prototype.toString.call(data) === '[object Object]') {
+		const newData: Record<string, any> = {}
+		Object.entries(data).forEach(([key, value]) => {
+			const newKey = key.replace(/_[a-z0-9]/g, (i) => i.replace('_', '').toUpperCase())
+			newData[newKey] = objectKeyToCamelCase(value)
+		})
+		return newData
+	} else if (Array.isArray(data)) {
+		return data.map((i: any) => objectKeyToCamelCase(i))
+	} else {
+		return data
+	}
 }
 
 request.interceptors.request.use(
@@ -24,13 +55,9 @@ request.interceptors.request.use(
 		if (orgId) {
 			request.headers['OpenAI-Organization'] = orgId
 		}
-		// if (request.data) {
-		// 	Object.entries({ ...request.data }).forEach(([key, value]) => {
-		// 		const newKey = key.replace(/[A-Z]/g, (i) => `_${i.toLowerCase()}`)
-		// 		request.data[newKey] = value
-		// 		delete request.data[key]
-		// 	})
-		// }
+		if (request.data) {
+			request.data = objectKeyToSnakeCase(request.data)
+		}
 		return request
 	},
 	(error) => {
@@ -40,7 +67,12 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-	(response) => response,
+	(response) => {
+		if (response.data) {
+			response.data = objectKeyToCamelCase(response.data)
+		}
+		return response
+	},
 	(error) => {
 		notifyError(error)
 		return Promise.reject(error)

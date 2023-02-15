@@ -2,7 +2,7 @@ import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
 import manifestJSON from '__STATIC_CONTENT_MANIFEST'
 
 const assetManifest = JSON.parse(manifestJSON)
-const openaiAPI = 'https://api.openai.com/v1'
+const openaiAPI = 'https://api.openai.com'
 
 export default {
 	async fetch(request, env, ctx) {
@@ -22,8 +22,8 @@ export default {
 			)
 		}
 
-		if (path.startsWith('/ai/')) {
-			return await fetch(`${openaiAPI}/${path.replace('/ai/', '')}`, {
+		if (path.startsWith('/openai/')) {
+			return await fetch(`${openaiAPI}/${path.replace('/openai/', '')}`, {
 				method: request.method,
 				headers: new Headers({
 					'Content-Type': request.headers.get('Content-Type') || 'application/json',

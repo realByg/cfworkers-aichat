@@ -21,14 +21,7 @@
 			</template>
 		</NButton>
 
-		<NPopselect
-			v-model:value="locale"
-			:options="[
-				{ label: '中文', value: 'zhCN' },
-				{ label: 'English', value: 'enUS' },
-			]"
-			placement="bottom-start"
-		>
+		<NPopselect v-model:value="locale" :options="localeOptions" placement="bottom-start">
 			<NButton class="!ml-2" type="primary" quaternary circle>
 				<template #icon>
 					<NIcon size="30">
@@ -75,6 +68,11 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useStore from '../utils/useStore'
 import { storeToRefs } from 'pinia'
+
+const localeOptions = [
+	{ label: '中文', value: 'zhCN' },
+	{ label: 'English', value: 'enUS' },
+]
 
 const { t } = useI18n()
 

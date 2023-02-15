@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-1 overflow-hidden">
-		<NScrollbar class="chat-scrollbar" ref="scrollbarRef" trigger="hover" :on-scroll="onScroll">
+		<NScrollbar class="chat-scrollbar" ref="scrollbarRef" trigger="hover" :onScroll="onScroll">
 			<slot />
 
 			<div

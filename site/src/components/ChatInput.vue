@@ -4,8 +4,9 @@
 			<NButton type="primary" quaternary circle>
 				<template #icon>
 					<NIcon size="30">
-						<Chat16Filled v-if="mode === 'dialog'" />
+						<SlideText20Filled v-if="mode === 'text'" />
 						<ImageMultiple16Filled v-else-if="mode === 'image'" />
+						<CodeCircle20Filled v-else-if="mode === 'code'" />
 					</NIcon>
 				</template>
 			</NButton>
@@ -15,7 +16,7 @@
 			class="lg:mx-4 mx-2"
 			v-model:value="input"
 			autofocus
-			show-count
+			showCount
 			type="textarea"
 			:maxlength="300"
 			@keydown.enter.exact.prevent="onSend"
@@ -35,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import { NInput, NButton, NPopselect, NIcon, SelectGroupOption } from 'naive-ui'
+import { NInput, NButton, NPopselect, NIcon, SelectOption } from 'naive-ui'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ImageMultiple16Filled, Chat16Filled, Send24Filled } from '@vicons/fluent'
+import { ImageMultiple16Filled, SlideText20Filled, Send24Filled, CodeCircle20Filled } from '@vicons/fluent'
 import useStore from '../utils/useStore'
 import { storeToRefs } from 'pinia'
 
@@ -52,8 +53,10 @@ const { mode } = storeToRefs(useStore())
 
 const input = ref('')
 
-const modeOptions: SelectGroupOption[] = [
-	// todo
+const modeOptions: SelectOption[] = [
+	{ label: () => t('mode.text'), value: 'text' },
+	{ label: () => t('mode.image'), value: 'image' },
+	{ label: () => t('mode.code'), value: 'code' },
 ]
 
 const newline = () => {

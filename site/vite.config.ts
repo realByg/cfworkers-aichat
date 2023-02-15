@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [vue()],
 	server: {
 		proxy: {
-			'/ai': 'http://localhost:8787',
+			'/openai': 'http://localhost:8787',
 		},
 	},
 })

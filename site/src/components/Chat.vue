@@ -5,6 +5,7 @@
 			:position="message.isFromUser ? 'right' : 'left'"
 			:content="message.content"
 			:type="message.type"
+			:isError="message.isError"
 		/>
 		<Message v-if="isLoading" position="left" isLoading />
 	</ChatScroll>
@@ -15,14 +16,14 @@
 import ChatScroll from './ChatScroll.vue'
 import Message from './Message.vue'
 import ChatInput from './ChatInput.vue'
-import { ref, nextTick, watch, computed } from 'vue'
+import { ref, nextTick, watch } from 'vue'
 import useStore from '../utils/useStore'
 import { storeToRefs } from 'pinia'
 import request from '../utils/request'
 
 const chatScrollRef = ref<typeof ChatScroll>()
 
-const { messageList, mode } = storeToRefs(useStore())
+const { messageList, mode, apiConfigs } = storeToRefs(useStore())
 
 const isLoading = ref(false)
 
@@ -40,51 +41,52 @@ const sendMessage = async (content: string) => {
 	messageList.value.push({
 		isFromUser: true,
 		content,
-		type: 'text'
+		type: 'text',
 	})
 	isLoading.value = true
 
-	// let apiPath = ''
-	// let prompt = ''
-	// const apiConfigData: Record<string, any> = {}
+	const apiPath = (() => {
+		if (mode.value === 'text' || mode.value === 'code') return '/v1/completions'
+		else if (mode.value === 'image') return '/v1/images/generations'
+	})()!
+	const prompt = (() => {
+		if (mode.value === 'text') return messageList.value.map((i) => i.content).join('\n')
+		else if (mode.value === 'code' || mode.value === 'image') return content
+	})()
 
-	// if (mode.value === 'dialog') {
-	// 	apiPath = '/completions'
-	// 	for (const item of messageList.value) {
-	// 		// if (item.isFromUser) prompt += 'Human: '
-	// 		// else prompt += 'AI: '
-	// 		prompt += item.content + '\n'
-	// 	}
-	// 	// prompt += 'AI: '
-	// 	apiConfigData.model = apiConfig.value.model
-	// 	apiConfigData.n = apiConfig.value.dialogN
-	// 	apiConfigData.temperature = apiConfig.value.temperature
-	// 	apiConfigData.max_tokens = apiConfig.value.maxTokens
-	// 	apiConfigData.top_p = apiConfig.value.topP
-	// 	if (apiConfig.value.stop.length) {
-	// 		apiConfigData.stop = apiConfig.value.stop
-	// 	}
-	// 	apiConfigData.frequency_penalty = apiConfig.value.frequencyPenalty
-	// 	apiConfigData.presence_penalty = apiConfig.value.presencePenalty
-	// 	apiConfigData.prompt = prompt
-	// } else if (mode.value === 'image') {
-	// 	apiPath = '/images/generations'
-	// 	prompt = content
-	// 	apiConfigData.n = apiConfig.value.imageN
-	// 	apiConfigData.size = apiConfig.value.size
-	// }
-
-	// try {
-	// 	const response = (await request.post(apiPath, apiConfigData)).data
-	// 	if (mode.value === 'dialog') {
-	// 		for (const choice of response.choices) {
-	// 			messageList.value.push({
-	// 				isFromUser: false,
-	// 				content: choice.text.trim(),
-	// 			})
-	// 		}
-	// 	}
-	// } catch (error) {}
+	try {
+		const response = (
+			await request.post(apiPath, {
+				...apiConfigs.value[mode.value],
+				prompt,
+			})
+		).data
+		if (mode.value === 'text' || mode.value === 'code') {
+			for (const choice of response.choices) {
+				messageList.value.push({
+					isFromUser: false,
+					content: choice.text.trim(),
+					type: 'text',
+				})
+			}
+		} else if (mode.value === 'image') {
+			for (const item of response.data) {
+				messageList.value.push({
+					isFromUser: false,
+					content: item.url,
+					type: 'image',
+				})
+			}
+		}
+	} catch (error: any) {
+		const errorMsg = error.response.data?.error?.message || String(error)
+		messageList.value.push({
+			isFromUser: false,
+			content: errorMsg,
+			type: 'text',
+			isError: true,
+		})
+	}
 	isLoading.value = false
 }
 </script>

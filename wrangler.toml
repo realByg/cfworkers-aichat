@@ -5,7 +5,7 @@ compatibility_date = "2023-02-10"
 workers_dev = true
 
 [vars]
-API_KEY = "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"
+API_KEY = ""
 ORG_ID = ""
 
 [site]

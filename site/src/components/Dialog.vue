@@ -6,7 +6,7 @@
 				'max-width': `${width} !important`,
 			}"
 			:title="title"
-			:show-icon="false"
+			:showIcon="false"
 			@close="show = false"
 		>
 			<NScrollbar class="dialog-scrollbar max-h-[80vh]">
