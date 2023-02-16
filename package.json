@@ -10,7 +10,9 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@vicons/fluent": "^0.12.0"
+    "@cloudflare/kv-asset-handler": "^0.3.0"
+  },
+  "dependencies": {
+    "mime": "^3.0.0"
   }
 }

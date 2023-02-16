@@ -22,7 +22,7 @@
 			@keydown.enter.exact.prevent="onSend"
 			@keyup.ctrl.enter="newline"
 			:autosize="{ minRows: 1, maxRows: 5 }"
-			:placeholder="t('chatInput.placeholder')"
+			:placeholder="t('placeholder')"
 		/>
 
 		<NButton type="primary" quaternary circle @click="onSend">
@@ -82,3 +82,16 @@ watch(mode, () => {
 	})
 })
 </script>
+
+<i18n lang="json">
+{
+	"enUS": {
+		"placeholder": "what do you wanna ask...",
+		"modeChangeTo": "Mode change to "
+	},
+	"zhCN": {
+		"placeholder": "你想问什么...",
+		"modeChangeTo": "模式变为"
+	}
+}
+</i18n>

@@ -2,25 +2,25 @@
 	<div
 		v-if="message?.type === 'chat' || loading"
 		class="w-full pb-4 flex"
-		:class="[{ 'animate-pulse': loading }, leftSide ? 'justify-start' : 'justify-end']"
+		:class="[{ 'animate-pulse': loading }, left ? 'justify-start' : 'justify-end']"
 	>
-		<div v-if="leftSide" class="lg:w-4 w-3 bg-zinc-800 border-none">
+		<div v-if="left" class="lg:w-4 w-3 bg-zinc-800 border-none">
 			<div class="w-full h-full rounded-br-lg bg-zinc-600"></div>
 		</div>
 
 		<div
 			class="lg:max-w-[60%] max-w-[80%] inline relative p-3 rounded-lg overflow-hidden break-words select-text"
-			:class="[leftSide ? 'bg-zinc-800 rounded-bl-none' : 'bg-zinc-500 rounded-br-none']"
+			:class="[left ? 'bg-zinc-800 rounded-bl-none' : 'bg-zinc-500 rounded-br-none']"
 		>
 			<template v-if="message?.content">
 				<div
-					v-if="message?.mode === 'text' || message?.mode === 'code'"
+					v-if="message?.as === 'text' || message?.as === 'code'"
 					class="whitespace-pre-wrap"
 				>
 					{{ message?.content }}
 				</div>
-				<!-- todo -->
-				<NImage v-else-if="message?.mode === 'image'" :src="message.content">
+
+				<NImage v-else-if="message?.as === 'image'" :src="message.content">
 					<template #placeholder>
 						<div
 							class="animate-pulse bg-zinc-700 max-w-full w-[500px] aspect-square"
@@ -36,7 +36,7 @@
 			<div v-else-if="loading" class="w-[20vw] h-6"></div>
 		</div>
 
-		<div v-if="!leftSide" class="lg:w-4 w-3 bg-zinc-500">
+		<div v-if="!left" class="lg:w-4 w-3 bg-zinc-500">
 			<div class="w-full h-full rounded-bl-lg bg-zinc-600"></div>
 		</div>
 	</div>
@@ -56,5 +56,5 @@ const props = defineProps<{
 	loading?: boolean
 }>()
 
-const leftSide = computed(() => props.message?.isAI || props.loading)
+const left = computed(() => props.message?.isAI || props.loading)
 </script>

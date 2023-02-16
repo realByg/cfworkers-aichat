@@ -4,12 +4,12 @@
 
 		<div class="h-10 px-2 flex-1 overflow-hidden">
 			<div class="font-bold lg:text-lg lg:leading-tight">
-				{{ t('header.title') }}
+				{{ t('title') }}
 			</div>
 			<div
 				class="text-xs lg:text-sm leading-none text-zinc-400 w-full overflow-hidden whitespace-nowrap text-ellipsis"
 			>
-				{{ t('header.desc') }}
+				{{ t('desc') }}
 			</div>
 		</div>
 
@@ -80,3 +80,16 @@ const settingsRef = ref<typeof Settings>()
 
 const { messages, locale } = storeToRefs(useStore())
 </script>
+
+<i18n lang="json">
+{
+	"enUS": {
+		"title": "cfworkers-aichat",
+		"desc": "AI Chat bot built on Cloudflare workers, powered by OpenAI"
+	},
+	"zhCN": {
+		"title": "cfworkers-aichat",
+		"desc": "搭建在 Cloudflare workers 上的 AI 聊天机器人，由 OpenAI 驱动"
+	}
+}
+</i18n>

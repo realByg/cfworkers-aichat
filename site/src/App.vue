@@ -1,10 +1,10 @@
 <template>
-	<NConfigProvider :locale="locale" :date-locale="dateLocale" :theme="theme">
+	<NConfigProvider :locale="locale" :dateLocale="dateLocale" :theme="theme">
 		<NGlobalStyle />
 
-		<div class="w-full h-screen flex justify-center items-center text-base bg-zinc-900">
+		<div class="fixed w-full h-full flex justify-center items-center text-base bg-zinc-900 overflow-hidden">
 			<div
-				class="bg-zinc-600 flex-1 flex flex-col max-w-[1200px] h-screen lg:h-[80vh] rounded-md border-2 border-zinc-600 overflow-hidden"
+				class="bg-zinc-600 flex-1 flex flex-col max-w-[1200px] h-full lg:h-[80vh] rounded-md border-2 border-zinc-600 overflow-hidden"
 			>
 				<Header />
 				<Chat />

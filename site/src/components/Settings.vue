@@ -1,20 +1,20 @@
 <template>
-	<Dialog v-model:show="showDialog" width="1000px" :title="t('settings.title')">
+	<Dialog v-model:show="showDialog" width="1000px" :title="t('title')">
 		<NForm class="mt-3">
 			<NGrid xGap="26" cols="1 m:2" responsive="screen">
-				<NFormItemGi :label="t('settings.api')">
+				<NFormItemGi :label="t('api')">
 					<NInput v-model:value="apiKey" clearable />
 				</NFormItemGi>
 
-				<NFormItemGi :label="t('settings.org')">
+				<NFormItemGi :label="t('org')">
 					<NInput v-model:value="orgId" clearable />
 				</NFormItemGi>
 
 				<NFormItemGi
 					v-if="creditGrants"
-					:label="`${t('settings.creditGrants')}: $${Number(
-						creditGrants?.totalAvailable,
-					).toFixed(2)} / $${Number(creditGrants?.totalGranted).toFixed(2)}`"
+					:label="`${t('creditGrants')}: $${Number(creditGrants?.totalAvailable).toFixed(
+						2,
+					)} / $${Number(creditGrants?.totalGranted).toFixed(2)}`"
 				>
 					<NProgress
 						type="line"
@@ -36,7 +36,7 @@
 			<NCollapseItem :title="t('mode.text')" name="text">
 				<NForm>
 					<NGrid xGap="26" cols="1 m:2" responsive="screen">
-						<NFormItemGi :label="t('settings.model')">
+						<NFormItemGi :label="t('model')">
 							<NSelect
 								v-model:value="apiConfigs.text.model"
 								filterable
@@ -45,9 +45,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi
-							:label="`${t('settings.temperature')}: ${apiConfigs.text.temperature}`"
-						>
+						<NFormItemGi :label="`${t('temperature')}: ${apiConfigs.text.temperature}`">
 							<NSlider
 								v-model:value="apiConfigs.text.temperature"
 								:tooltip="false"
@@ -57,9 +55,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi
-							:label="`${t('settings.maxTokens')}: ${apiConfigs.text.maxTokens}`"
-						>
+						<NFormItemGi :label="`${t('maxTokens')}: ${apiConfigs.text.maxTokens}`">
 							<NSlider
 								v-model:value="apiConfigs.text.maxTokens"
 								:tooltip="false"
@@ -69,7 +65,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="`${t('settings.topP')}: ${apiConfigs.text.topP}`">
+						<NFormItemGi :label="`${t('topP')}: ${apiConfigs.text.topP}`">
 							<NSlider
 								v-model:value="apiConfigs.text.topP"
 								:tooltip="false"
@@ -80,9 +76,7 @@
 						</NFormItemGi>
 
 						<NFormItemGi
-							:label="`${t('settings.frequencyPenalty')}: ${
-								apiConfigs.text.frequencyPenalty
-							}`"
+							:label="`${t('frequencyPenalty')}: ${apiConfigs.text.frequencyPenalty}`"
 						>
 							<NSlider
 								v-model:value="apiConfigs.text.frequencyPenalty"
@@ -94,9 +88,7 @@
 						</NFormItemGi>
 
 						<NFormItemGi
-							:label="`${t('settings.presencePenalty')}: ${
-								apiConfigs.text.presencePenalty
-							}`"
+							:label="`${t('presencePenalty')}: ${apiConfigs.text.presencePenalty}`"
 						>
 							<NSlider
 								v-model:value="apiConfigs.text.presencePenalty"
@@ -107,7 +99,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="`${t('settings.n')}: ${apiConfigs.text.n}`">
+						<NFormItemGi :label="`${t('n')}: ${apiConfigs.text.n}`">
 							<NSlider
 								v-model:value="apiConfigs.text.n"
 								:tooltip="false"
@@ -117,7 +109,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="t('settings.stop')">
+						<NFormItemGi :label="t('stop')">
 							<NDynamicTags
 								v-model:value="apiConfigs.text.stop"
 								:max="4"
@@ -131,7 +123,7 @@
 			<NCollapseItem :title="t('mode.image')" name="image">
 				<NForm>
 					<NGrid xGap="26" cols="1 m:2" responsive="screen">
-						<NFormItemGi :label="`${t('settings.n')}: ${apiConfigs.image.n}`">
+						<NFormItemGi :label="`${t('n')}: ${apiConfigs.image.n}`">
 							<NSlider
 								v-model:value="apiConfigs.image.n"
 								:tooltip="false"
@@ -141,7 +133,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="t('settings.size')">
+						<NFormItemGi :label="t('size')">
 							<NSelect
 								v-model:value="apiConfigs.image.size"
 								filterable
@@ -155,7 +147,7 @@
 			<NCollapseItem :title="t('mode.code')" name="code">
 				<NForm>
 					<NGrid xGap="26" cols="1 m:2" responsive="screen">
-						<NFormItemGi :label="t('settings.model')">
+						<NFormItemGi :label="t('model')">
 							<NSelect
 								v-model:value="apiConfigs.code.model"
 								filterable
@@ -164,9 +156,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi
-							:label="`${t('settings.temperature')}: ${apiConfigs.code.temperature}`"
-						>
+						<NFormItemGi :label="`${t('temperature')}: ${apiConfigs.code.temperature}`">
 							<NSlider
 								v-model:value="apiConfigs.code.temperature"
 								:tooltip="false"
@@ -176,9 +166,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi
-							:label="`${t('settings.maxTokens')}: ${apiConfigs.code.maxTokens}`"
-						>
+						<NFormItemGi :label="`${t('maxTokens')}: ${apiConfigs.code.maxTokens}`">
 							<NSlider
 								v-model:value="apiConfigs.code.maxTokens"
 								:tooltip="false"
@@ -188,7 +176,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="`${t('settings.topP')}: ${apiConfigs.code.topP}`">
+						<NFormItemGi :label="`${t('topP')}: ${apiConfigs.code.topP}`">
 							<NSlider
 								v-model:value="apiConfigs.code.topP"
 								:tooltip="false"
@@ -199,9 +187,7 @@
 						</NFormItemGi>
 
 						<NFormItemGi
-							:label="`${t('settings.frequencyPenalty')}: ${
-								apiConfigs.code.frequencyPenalty
-							}`"
+							:label="`${t('frequencyPenalty')}: ${apiConfigs.code.frequencyPenalty}`"
 						>
 							<NSlider
 								v-model:value="apiConfigs.code.frequencyPenalty"
@@ -213,9 +199,7 @@
 						</NFormItemGi>
 
 						<NFormItemGi
-							:label="`${t('settings.presencePenalty')}: ${
-								apiConfigs.code.presencePenalty
-							}`"
+							:label="`${t('presencePenalty')}: ${apiConfigs.code.presencePenalty}`"
 						>
 							<NSlider
 								v-model:value="apiConfigs.code.presencePenalty"
@@ -226,7 +210,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="`${t('settings.n')}: ${apiConfigs.code.n}`">
+						<NFormItemGi :label="`${t('n')}: ${apiConfigs.code.n}`">
 							<NSlider
 								v-model:value="apiConfigs.code.n"
 								:tooltip="false"
@@ -236,7 +220,7 @@
 							/>
 						</NFormItemGi>
 
-						<NFormItemGi :label="t('settings.stop')">
+						<NFormItemGi :label="t('stop')">
 							<NDynamicTags
 								v-model:value="apiConfigs.code.stop"
 								:max="4"
@@ -334,3 +318,38 @@ defineExpose({
 	},
 })
 </script>
+
+<i18n lang="json">
+{
+	"enUS": {
+		"title": "Settings",
+		"api": "API Key",
+		"org": "Organization ID",
+		"creditGrants": "Credit Grants",
+		"model": "Model",
+		"n": "Count",
+		"temperature": "Temperature",
+		"maxTokens": "Max Tokens",
+		"topP": "Top P",
+		"stop": "Stop",
+		"frequencyPenalty": "Frequency Penalty",
+		"presencePenalty": "Presence Penalty",
+		"size": "Size"
+	},
+	"zhCN": {
+		"title": "设置",
+		"api": "API 密钥",
+		"org": "组织 ID",
+		"creditGrants": "账号赠款",
+		"model": "模型",
+		"n": "数量",
+		"temperature": "温度",
+		"maxTokens": "最大长度",
+		"topP": "最高 P",
+		"stop": "停止",
+		"frequencyPenalty": "频率惩罚",
+		"presencePenalty": "在场处罚",
+		"size": "尺寸"
+	}
+}
+</i18n>

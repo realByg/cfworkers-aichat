@@ -36,6 +36,7 @@ const sendMessage = async (content: string) => {
 		isAI: false,
 		content,
 		mode: mode.value,
+		as: 'text',
 		type: 'chat',
 	})
 	loading.value = true
@@ -66,6 +67,7 @@ const sendMessage = async (content: string) => {
 					isAI: true,
 					content: choice.text.trim(),
 					mode: mode.value,
+					as: mode.value,
 					type: 'chat',
 				})
 			}
@@ -75,6 +77,7 @@ const sendMessage = async (content: string) => {
 					isAI: true,
 					content: item.url,
 					mode: mode.value,
+					as: mode.value,
 					type: 'chat',
 				})
 			}
@@ -84,6 +87,7 @@ const sendMessage = async (content: string) => {
 		messages.value.push({
 			isAI: true,
 			mode: mode.value,
+			as: mode.value,
 			error: errorMsg,
 			type: 'chat',
 		})

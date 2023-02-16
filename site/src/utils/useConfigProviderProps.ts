@@ -15,7 +15,6 @@ const useConfigProviderProps = () => {
 		storedLocale,
 		() => {
 			i18n.global.locale.value = storedLocale.value
-
 			switch (storedLocale.value) {
 				case 'zhCN':
 					locale.value = zhCN

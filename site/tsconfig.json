@@ -14,7 +14,10 @@
       "DOM"
     ],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": [
+      "@intlify/unplugin-vue-i18n/messages"
+    ]
   },
   "include": [
     "src/**/*.ts",
