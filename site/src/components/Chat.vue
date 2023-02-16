@@ -83,14 +83,15 @@ const sendMessage = async (content: string) => {
 			}
 		}
 	} catch (error: any) {
-		const errorMsg = error?.response?.data?.error?.message || String(error)
-		messages.value.push({
-			isAI: true,
-			mode: mode.value,
-			as: mode.value,
-			error: errorMsg,
-			type: 'chat',
-		})
+		if (error?.response) {
+			messages.value.push({
+				isAI: true,
+				mode: mode.value,
+				as: mode.value,
+				error: error?.response?.data?.error?.message || String(error),
+				type: 'chat',
+			})
+		}
 	}
 	loading.value = false
 }
